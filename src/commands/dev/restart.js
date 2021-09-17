@@ -4,6 +4,7 @@ class RestartCommand extends Command {
     constructor() {
         super('restart', {
            aliases: ['restart', 'rs'],
+           category: 'Dev',
            ownerOnly: true 
         });
     }

@@ -1,5 +1,6 @@
 const { AkairoClient, CommandHandler, ListenerHandler } = require('discord-akairo')
 const { TOKEN, MONGOSTRING } = require('../util/config')
+const { GuildsProvider } = require('../structures/Providers')
 const { embed } = require('../util/function')
 const mongoose = require('mongoose')
 
@@ -29,7 +30,11 @@ module.exports = class SpaceClient extends AkairoClient {
  
         this.commandHandler = new CommandHandler(this, {
             allowMention: true,
-            prefix: config.prefix,
+            prefix: async message => {
+                const guildPrefix = await this.guildSettings.get(message.guild)
+                if (guildPrefix) return guildPrefix.prefix
+                return config.prefix
+            },
             defaultCooldown: 2000,
             directory: './src/commands/'
         })
@@ -37,11 +42,9 @@ module.exports = class SpaceClient extends AkairoClient {
         this.listenerHandler = new ListenerHandler(this, {
             directory: './src/listeners/'
         })
-
     
-        this.functions = {
-            embed: embed
-        }
+        this.functions = { embed: embed }
+        this.guildSettings = new GuildsProvider()
     }
 
     init() {

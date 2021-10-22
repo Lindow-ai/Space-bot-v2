@@ -19,8 +19,8 @@
   "homepage": "https://github.com/Lindow-ai/Space-bot-v2#readme",
   "dependencies": {
     "common-tags": "^1.8.0",
-    "discord-akairo": "github:SkyBlockDev/discord-akairo",
-    "discord.js": "^13.0.1",
+    "discord-akairo": "github:NotEnoughUpdates/discord-akairo",
+    "discord.js": "^13.1.0",
     "mongoose": "^6.0.8"
   }
 }
